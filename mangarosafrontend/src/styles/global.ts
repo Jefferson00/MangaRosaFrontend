@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     color: #29292e;
   }
 
-  body, input, button, textarea {
+  body, input, button, label, textarea {
       font: 400 16px 'Roboto', sans-serif;
   }
 `
