@@ -1,18 +1,19 @@
 import { Route, RouteProps, Redirect } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface PrivateRouteProps extends RouteProps {
-  isAuth: boolean;
 }
 
-export default function PrivateRoute({ component: Component, isAuth, ...rest }: PrivateRouteProps) {
+export default function PrivateRoute({ component: Component, ...rest }: PrivateRouteProps) {
+  const { isAuth } = useAuth();
+
   if (!Component) return null;
 
-  console.log(isAuth)
   return (
     <Route
       {...rest}
       render={props =>
-        isAuth ? (
+        isAuth() ? (
           <Component {...props} />
         ) : (
           <Redirect to={{ pathname: '/', state: { from: props.location } }} />

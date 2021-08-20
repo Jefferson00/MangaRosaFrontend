@@ -17,8 +17,8 @@ import logoImg from '../../assets/logo.png';
 import getValidationErrors from "../../utils/getValidationErrors";
 
 import * as Yup from 'yup';
-import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface LoginData {
   name: string;

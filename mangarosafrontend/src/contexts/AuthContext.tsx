@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext, ReactNode, useContext } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import api from '../services/api';
 
 type User = {
@@ -22,21 +23,16 @@ export function AuthProvider(props: AuthProviderProps) {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = () => {
-      const token = localStorage.getItem('@MangaRosa:token');
+    const storedToken = localStorage.getItem('@MangaRosa:token');
 
-      if (token) {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        setToken(token);
-      } else {
-        api.defaults.headers.authorization = null;
-        setToken(null);
-      }
+    if (storedToken) {
+      api.defaults.headers.authorization = `Bearer ${storedToken}`;
+      setToken(storedToken);
+    } else {
+      api.defaults.headers.authorization = null;
+      setToken(null);
     }
 
-    return () => {
-      unsubscribe();
-    }
   }, []);
 
   function isAuth() {
