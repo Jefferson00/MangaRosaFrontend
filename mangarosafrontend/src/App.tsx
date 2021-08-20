@@ -1,15 +1,14 @@
 import { GlobalStyle } from './styles/global';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { UserRegister } from './pages/User/Register'
+
+import { AuthProvider } from './contexts/AuthContext';
+import Routes from './routes';
 
 function App() {
   return (
-    <BrowserRouter>
+    <AuthProvider>
       <GlobalStyle />
-      <Switch>
-        <Route path="/:user/registrar" component={UserRegister} />
-      </Switch>
-    </BrowserRouter>
+      <Routes />
+    </AuthProvider>
   );
 }
 
