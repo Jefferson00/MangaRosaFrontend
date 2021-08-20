@@ -23,13 +23,20 @@ import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useState } from "react";
 import getValidationErrors from "../../../utils/getValidationErrors";
+import { useEffect } from "react";
+import api from "../../../services/api";
+
+interface Knowledges {
+  id: number;
+  name: string;
+}
 
 interface RegisterData {
   name: string;
   email: string;
   cpf: string;
   phone: string;
-  knowledges: string[];
+  knowledges: Knowledges[];
 }
 
 interface Errors {
@@ -39,26 +46,53 @@ interface Errors {
 export function UserRegister() {
   const { user } = useParams<{ user: string }>();
 
-  const knowledges = ['Git', 'React', 'PHP', 'NodeJS', 'DevOps', 'Banco de Dados', 'Typescript'];
+  //const knowledges = ['Git', 'React', 'PHP', 'NodeJS', 'DevOps', 'Banco de Dados', 'Typescript'];
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
   const [phone, setPhone] = useState('');
-  const [userKnowledges, setUserKnowledges] = useState<string[]>([]);
+  const [knowledges, setKnowledges] = useState<Knowledges[]>([]);
+  const [userKnowledges, setUserKnowledges] = useState<Knowledges[]>([]);
 
   const [errors, setErrors] = useState<Errors>({} as Errors);
+
+  /**
+   * Set the knowledges state with database results
+   */
+  async function getAllKnowledges() {
+    try {
+      const { data } = await api.get('/knowledges');
+
+      let knowledgesArray: Knowledges[] = [];
+
+      data.map((knowledge: Knowledges) => {
+        knowledgesArray.push({
+          id: knowledge.id,
+          name: knowledge.name,
+        })
+      });
+
+      setKnowledges(knowledgesArray);
+    } catch (error) {
+      alert('Não foi possível carregar os conhecimentos')
+    }
+  }
 
   /*
    *  Update state for array of user knowledges
    */
   function handleSetKnowledges(value: string) {
-    if (userKnowledges.includes(value)) {
+    const includeValue = userKnowledges.filter(knowledge => knowledge.name === value);
+
+    const knowledgesFiltered = knowledges.filter(knowledge => knowledge.name === value);
+
+    if (includeValue.length > 0) {
       setUserKnowledges(
-        userKnowledges.filter(knowledge => knowledge !== value)
+        userKnowledges.filter(knowledge => knowledge.name !== value)
       );
     } else {
-      setUserKnowledges([...userKnowledges, value]);
+      setUserKnowledges([...userKnowledges, knowledgesFiltered[0]]);
     }
   }
 
@@ -97,15 +131,28 @@ export function UserRegister() {
         abortEarly: false,
       });
 
+      const response = await api.post('/users/create', data);
+
+      console.log(response.statusText)
+
+      if (response.data) {
+        alert('Registrado!')
+      }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         alert('Preencha todos os campos corretamente.');
 
         const errors = getValidationErrors(error);
         setErrors(errors);
+      } else {
+        alert(error.response.data.error);
       }
     }
   }
+
+  useEffect(() => {
+    getAllKnowledges();
+  }, []);
 
   return (
     <Container>
@@ -173,15 +220,15 @@ export function UserRegister() {
           <InputContainer>
             <Label>Conhecimentos</Label>
             <CheckBoxContainer>
-              {knowledges.map((knowledge, index) => {
+              {knowledges && knowledges.map((knowledge) => {
                 return (
-                  <CheckBoxItem key={index}>
+                  <CheckBoxItem key={knowledge.id}>
                     <Input
                       type="checkbox"
-                      value={knowledge}
+                      value={knowledge.name}
                       onChange={event => handleSetKnowledges(event.target.value)}
                     />
-                    <CheckBoxLabel>{knowledge}</CheckBoxLabel>
+                    <CheckBoxLabel>{knowledge.name}</CheckBoxLabel>
                   </CheckBoxItem>
                 )
               })}
