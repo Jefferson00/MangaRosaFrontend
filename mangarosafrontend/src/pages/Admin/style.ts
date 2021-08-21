@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import InputMask from 'react-input-mask';
 
 export const Container = styled.div`
   width: 100vw;
@@ -7,34 +6,28 @@ export const Container = styled.div`
 `
 export const Header = styled.div`
   display: flex;
-  width: 37rem;
-  max-width: 750px;
-  margin: 0 auto;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
   align-items: center;
   padding: 2rem;
   gap: 1.5rem;
 `
 export const Logo = styled.img`
   max-height: 100%;
-  width: 10rem;
+  width: 15rem;
 `
-export const Title = styled.h2`
+export const Title = styled.h1`
   color: #DD1763;
 `
-export const Subtitle = styled.p`
-  color:#414141;
-  font-size: 1.25rem;
-`
 export const Main = styled.div`
-  width: 37rem;
+  width: 35rem;
   max-width: 750px;
   margin: 0 auto;
 `
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   padding-bottom: 2rem;
 `
 export const InputContainer = styled.div`
@@ -45,30 +38,7 @@ export const InputContainer = styled.div`
 export const Label = styled.label`
   font-weight: 500;
 `
-export const CheckBoxContainer = styled.div`
-    display: flex;
-    align-items: center;
-    gap:1rem;
-`
-export const CheckBoxItem = styled.div`
-    display: flex;
-    justify-content:center;
-    text-align: center;
-    gap:0.5rem;
-    align-items: center;
-`
-export const CheckBoxLabel = styled.label`
-  font-weight: 500;
-  font-size: 0.8rem;
-`
 export const Input = styled.input`
-  border: 1px solid #414141;
-  border-radius: 10px;
-  height: 2rem;
-  padding: 1rem;
-  margin: 0.5rem 0;
-`
-export const InputMasked = styled(InputMask)`
   border: 1px solid #414141;
   border-radius: 10px;
   height: 2rem;
@@ -93,4 +63,3 @@ export const ErrorMessage = styled.span`
   font-size: 0.8rem;
   color:#F43434;
 `
-
