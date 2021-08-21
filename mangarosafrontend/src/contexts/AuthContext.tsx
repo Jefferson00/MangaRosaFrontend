@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, ReactNode, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+
 import api from '../services/api';
 
 type User = {

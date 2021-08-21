@@ -19,26 +19,16 @@ import {
 import GoBackImg from '../../../assets/goback.svg';
 
 import api from "../../../services/api";
-
-interface Knowledges {
-  id: number;
-  name: string;
-}
-
-interface UserData {
-  id: number;
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  is_validated: boolean;
-  knowledges: Knowledges[];
-}
+import { format } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 export function Validate() {
   const history = useHistory();
   const { user, handleSelectUser } = useUser();
 
+  /**
+   * Valid or invalid one user
+   */
   async function validateUser() {
     if (user) {
       try {
@@ -98,6 +88,20 @@ export function Validate() {
               ))}
             </KnowledgesContainer>
           </UserDataContainer>
+
+          {user?.is_validated &&
+            <UserDataContainer>
+              <Label>Validado em: </Label>
+              <Data>
+                {format(
+                  zonedTimeToUtc(
+                    user.validated_at, 'America/Sao_Paulo'
+                  ),
+                  'dd/MM/yyyy HH:mm'
+                )}
+              </Data>
+            </UserDataContainer>
+          }
 
           <ValidateButton
             isValid={user?.is_validated || false}

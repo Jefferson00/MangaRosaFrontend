@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, ReactNode, useContext } from 'react';
+import { useState, createContext, ReactNode, useContext } from 'react';
 import api from '../services/api';
 
 interface Knowledges {
@@ -13,6 +13,7 @@ interface UserData {
   cpf: string;
   phone: string;
   is_validated: boolean;
+  validated_at: Date;
   knowledges: Knowledges[];
 }
 
@@ -31,6 +32,10 @@ export const UserContext = createContext({} as UserContextType);
 export function UserProvider(props: UserProviderProps) {
   const [user, setUser] = useState<UserData | null>(null);
 
+  /**
+   * Get a user by id and set in state
+   * @param id :number
+   */
   async function getUser(id: number) {
     try {
       const { data } = await api.get(`users/${id}`);
@@ -45,10 +50,6 @@ export function UserProvider(props: UserProviderProps) {
   function handleSelectUser(user: UserData) {
     setUser(user);
   }
-
-  useEffect(() => {
-  }, []);
-
 
   return (
     <UserContext.Provider value={{

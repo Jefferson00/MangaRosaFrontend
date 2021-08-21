@@ -22,7 +22,7 @@ export const Header = styled.div`
   gap: 1.5rem;
 `
 export const Title = styled.h1`
-  
+  color: #DD1763;
 `
 export const SearchContainer = styled.div`
   display: flex;

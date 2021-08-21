@@ -23,7 +23,7 @@ export const Header = styled.div`
   gap: 1.5rem;
 `
 export const Title = styled.h1`
-  
+  color: #DD1763;
 `
 export const GoBack = styled.button`
   cursor: pointer;
@@ -32,7 +32,7 @@ export const GoBack = styled.button`
   margin-right: 1rem;
 `
 export const GoBackIcon = styled.img`
-
+  
 `
 
 export const Main = styled.div`
