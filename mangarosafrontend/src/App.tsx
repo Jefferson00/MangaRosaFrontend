@@ -2,12 +2,15 @@ import { GlobalStyle } from './styles/global';
 
 import { AuthProvider } from './contexts/AuthContext';
 import Routes from './routes';
+import { UserProvider } from './contexts/UserContext';
 
 function App() {
   return (
     <AuthProvider>
-      <GlobalStyle />
-      <Routes />
+      <UserProvider>
+        <GlobalStyle />
+        <Routes />
+      </UserProvider>
     </AuthProvider>
   );
 }

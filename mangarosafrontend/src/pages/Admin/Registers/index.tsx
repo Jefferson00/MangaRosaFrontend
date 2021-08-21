@@ -17,15 +17,16 @@ import {
 
 import api from "../../../services/api";
 import { useEffect } from "react";
+import { useUser } from "../../../contexts/UserContext";
 
 interface UsersProps {
-  id: string;
+  id: number;
   name: string;
   is_validated: boolean;
 }
 
 export function Registers() {
-  //const { token } = useAuth();
+  const { getUser } = useUser();
   const [token, setToken] = useState<string | null>(null);
   //const history = useHistory();
   const [users, setUsers] = useState<UsersProps[]>([]);
@@ -101,7 +102,7 @@ export function Registers() {
           <RegisterList>
             {users.map(user => (
               <Register key={user.id}>
-                <LinkComponent to='#'>
+                <LinkComponent to={`${user.name}/validar`} onClick={() => getUser(user.id)}>
                   <Name>{user.name}</Name>
                 </LinkComponent>
                 <ValidateStatus isValidated={user.is_validated}>
