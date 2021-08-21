@@ -28,7 +28,6 @@ interface UsersProps {
 export function Registers() {
   const { getUser } = useUser();
   const [token, setToken] = useState<string | null>(null);
-  //const history = useHistory();
   const [users, setUsers] = useState<UsersProps[]>([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -100,19 +99,20 @@ export function Registers() {
       <Main>
         <RegisterContainer>
           <RegisterList>
-            {users.map(user => (
-              <Register key={user.id}>
-                <LinkComponent to={`${user.name}/validar`} onClick={() => getUser(user.id)}>
-                  <Name>{user.name}</Name>
-                </LinkComponent>
-                <ValidateStatus isValidated={user.is_validated}>
-                  {user.is_validated ?
-                    'Validado' :
-                    'Não validado'
-                  }
-                </ValidateStatus>
-              </Register>
-            ))}
+            {users.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) &&
+              users.map(user => (
+                <Register key={user.id}>
+                  <LinkComponent to={`${user.name}/validar`} onClick={() => getUser(user.id)}>
+                    <Name>{user.name}</Name>
+                  </LinkComponent>
+                  <ValidateStatus isValidated={user.is_validated}>
+                    {user.is_validated ?
+                      'Validado' :
+                      'Não validado'
+                    }
+                  </ValidateStatus>
+                </Register>
+              ))}
           </RegisterList>
         </RegisterContainer>
       </Main>
