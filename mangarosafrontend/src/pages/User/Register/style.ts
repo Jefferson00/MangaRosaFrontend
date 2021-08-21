@@ -7,27 +7,34 @@ export const Container = styled.div`
 `
 export const Header = styled.div`
   display: flex;
-  height: 7rem;
-  width: 100%;
-  justify-content: center;
+  width: 37rem;
+  max-width: 750px;
+  margin: 0 auto;
+  justify-content: space-between;
   align-items: center;
   padding: 2rem;
   gap: 1.5rem;
 `
 export const Logo = styled.img`
   max-height: 100%;
+  width: 10rem;
 `
-export const Title = styled.p`
-  font-size: 1.5rem;
+export const Title = styled.h2`
+  color: #DD1763;
+`
+export const Subtitle = styled.p`
+  color:#414141;
+  font-size: 1.25rem;
 `
 export const Main = styled.div`
-  width: 35rem;
+  width: 37rem;
   max-width: 750px;
   margin: 0 auto;
 `
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 1rem;
   padding-bottom: 2rem;
 `
 export const InputContainer = styled.div`
@@ -45,6 +52,8 @@ export const CheckBoxContainer = styled.div`
 `
 export const CheckBoxItem = styled.div`
     display: flex;
+    justify-content:center;
+    text-align: center;
     gap:0.5rem;
     align-items: center;
 `
@@ -67,7 +76,7 @@ export const InputMasked = styled(InputMask)`
   margin: 0.5rem 0;
 `
 export const Button = styled.button`
-  height: 2rem;
+  height: 3rem;
   border: none;
   cursor: pointer;
   border-radius: 10px;

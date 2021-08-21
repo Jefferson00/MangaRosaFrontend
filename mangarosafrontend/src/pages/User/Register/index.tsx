@@ -1,4 +1,5 @@
-import { FormEvent } from "react";
+import { FormEvent, useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -15,15 +16,15 @@ import {
   CheckBoxLabel,
   CheckBoxContainer,
   CheckBoxItem,
+  Subtitle,
 } from "./style";
 
-import logoImg from '../../../assets/logo.png';
+import logoImg from '../../../assets/logo.svg';
 
-import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { useState } from "react";
+
 import getValidationErrors from "../../../utils/getValidationErrors";
-import { useEffect } from "react";
+
 import api from "../../../services/api";
 
 interface Knowledges {
@@ -45,8 +46,6 @@ interface Errors {
 
 export function UserRegister() {
   const { user } = useParams<{ user: string }>();
-
-  //const knowledges = ['Git', 'React', 'PHP', 'NodeJS', 'DevOps', 'Banco de Dados', 'Typescript'];
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -133,10 +132,8 @@ export function UserRegister() {
 
       const response = await api.post('/users/create', data);
 
-      console.log(response.statusText)
-
       if (response.data) {
-        alert('Registrado!')
+        alert('Registrado com sucesso!');
       }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -157,10 +154,15 @@ export function UserRegister() {
   return (
     <Container>
       <Header>
-        <Logo src={logoImg} />
-        <Title>
-          Bem vindo {user}! Faça seu registro abaixo:
-        </Title>
+        <div>
+          <Logo src={logoImg} />
+        </div>
+        <div>
+          <Title>
+            Bem vindo {user}!
+          </Title>
+          <Subtitle>Faça seu registro abaixo:</Subtitle>
+        </div>
       </Header>
 
       <Main>
@@ -192,7 +194,8 @@ export function UserRegister() {
 
           <InputContainer>
             <Label>CPF</Label>
-            <Input
+            <InputMasked
+              mask="999.999.999-99"
               type="text"
               placeholder="000.000.000-00"
               value={cpf}

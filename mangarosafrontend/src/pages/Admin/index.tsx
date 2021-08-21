@@ -13,7 +13,7 @@ import {
   ErrorMessage,
 } from "./style";
 
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../assets/logo.svg';
 import getValidationErrors from "../../utils/getValidationErrors";
 
 import * as Yup from 'yup';

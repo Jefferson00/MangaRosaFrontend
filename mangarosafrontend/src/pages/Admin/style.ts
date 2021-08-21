@@ -6,7 +6,7 @@ export const Container = styled.div`
 `
 export const Header = styled.div`
   display: flex;
-  height: 7rem;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -15,9 +15,10 @@ export const Header = styled.div`
 `
 export const Logo = styled.img`
   max-height: 100%;
+  width: 15rem;
 `
-export const Title = styled.p`
-  font-size: 1.5rem;
+export const Title = styled.h1`
+  color: #DD1763;
 `
 export const Main = styled.div`
   width: 35rem;
@@ -45,7 +46,7 @@ export const Input = styled.input`
   margin: 0.5rem 0;
 `
 export const Button = styled.button`
-  height: 2rem;
+  height: 3rem;
   border: none;
   cursor: pointer;
   border-radius: 10px;
